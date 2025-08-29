@@ -6,8 +6,10 @@ import { Providers as Pv } from "./(auth)/providers";
 
 export function Providers({ children, ...props }: ComponentProps<typeof NextThemesProvider>) {
 	return (
-		<NextThemesProvider {...props} attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-			<Pv>{children}</Pv>
-		</NextThemesProvider>
+		<Pv>
+			<NextThemesProvider {...props} attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+				{children}
+			</NextThemesProvider>
+		</Pv>
 	);
 }
