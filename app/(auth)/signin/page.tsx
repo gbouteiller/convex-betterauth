@@ -18,15 +18,12 @@ export default function SignInPage() {
 			e.preventDefault();
 			const formData = new FormData(e.target as HTMLFormElement);
 			formData.set("flow", flow);
-			try {
-				const opts = { onError: (ctx: ErrorContext) => setError(ctx.error.message), onSuccess: () => router.push("/admin") };
-				const data = { email: formData.get("email") as string, password: formData.get("password") as string };
-				await (flow === "signIn"
-					? authClient.signIn.email(data, opts)
-					: authClient.signUp.email({ ...data, name: "Gregory Bouteilelr" }, opts));
-			} catch (error) {
-				setError((error as Error).message);
-			}
+
+			const opts = { onError: (ctx: ErrorContext) => setError(ctx.error.message), onSuccess: () => router.push("/admin") };
+			const data = { email: formData.get("email") as string, password: formData.get("password") as string };
+			await (flow === "signIn"
+				? authClient.signIn.email(data, opts)
+				: authClient.signUp.email({ ...data, name: "Gregory Bouteiller" }, opts));
 		},
 		[flow, router],
 	);
