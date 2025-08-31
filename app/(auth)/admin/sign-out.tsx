@@ -1,24 +1,17 @@
 "use client";
 
-import { useConvexAuth } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
 export function SignOut() {
-	const { isAuthenticated } = useConvexAuth();
 	const router = useRouter();
+	const handleClick = useCallback(() => void authClient.signOut({}, { onSuccess: () => router.push("/") }), [router]);
+
 	return (
-		<>
-			{isAuthenticated && (
-				<Button
-					variant="secondary"
-					className="cursor-pointer"
-					onClick={() => void authClient.signOut({}, { onSuccess: () => router.push("/") })}
-				>
-					Sign out
-				</Button>
-			)}
-		</>
+		<Button variant="secondary" className="cursor-pointer" onClick={handleClick}>
+			Sign out
+		</Button>
 	);
 }
