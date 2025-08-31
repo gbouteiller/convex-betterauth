@@ -1,5 +1,6 @@
 import { getToken } from "@convex-dev/better-auth/nextjs";
 import { preloadQuery } from "convex/nextjs";
+import { redirect } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import { createAuth } from "@/lib/auth";
 import { SignOut } from "./sign-out";
@@ -8,6 +9,7 @@ import { UserEmail } from "./user-email";
 // ROOT ************************************************************************************************************************************
 export default async function AdminPage() {
 	const token = await getToken(createAuth);
+	if (!token) redirect("/signin");
 	const preloaded = await preloadQuery(api.auth.getUserEmail, {}, { token });
 
 	return (
